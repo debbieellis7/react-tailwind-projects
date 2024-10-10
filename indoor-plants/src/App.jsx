@@ -3,7 +3,7 @@ import Home from "./components/Home";
 import Services from "./components/Services";
 import AboutUs from "./components/AboutUs";
 import Popular from "./components/Popular";
-import "remixicon/fonts/remixicon.css";
+import Review from "./components/Review";
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         <Services />
         <AboutUs />
         <Popular />
+        <Review />
       </main>
     </>
   );
