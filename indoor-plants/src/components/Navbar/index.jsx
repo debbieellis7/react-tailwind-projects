@@ -1,5 +1,10 @@
 import { useState } from "react";
 
+// Convert a string to a URL-friendly anchor
+const formatToAnchor = (text) => {
+  return text.toLowerCase().replace(/\s+/g, "");
+};
+
 const Navbar = () => {
   // State to manage the visibility of the menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,7 +15,7 @@ const Navbar = () => {
   };
 
   // Menu items array
-  const menuItems = ["Home", "About", "Popular", "Review"];
+  const menuItems = ["Home", "About Us", "Popular", "Review"];
 
   return (
     <header className="bg-green-950 fixed w-full top-0 left-0 z-50">
@@ -28,7 +33,7 @@ const Navbar = () => {
             {menuItems.map((item) => (
               <li key={item}>
                 <a
-                  href={`#${item.toLowerCase()}`}
+                  href={`#${formatToAnchor(item)}`}
                   className="nav-link"
                   onClick={toggleMenu}
                 >
