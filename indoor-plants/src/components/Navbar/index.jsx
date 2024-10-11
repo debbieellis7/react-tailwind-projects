@@ -1,24 +1,44 @@
-import { useState } from "react";
-
-// Convert a string to a URL-friendly anchor
-const formatToAnchor = (text) => {
-  return text.toLowerCase().replace(/\s+/g, "");
-};
+import { useState, useEffect, useCallback } from "react";
 
 const Navbar = () => {
-  // State to manage the visibility of the menu
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Toggle the menu visibility
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   // Menu items array
   const menuItems = ["Home", "About Us", "Popular", "Review"];
 
+  // State to manage the visibility of the menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // State to track scroll position
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Scroll event handler to add/remove border based on scroll position
+  const handleScroll = useCallback(() => {
+    if (window.scrollY >= 50) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  }, []);
+
+  // Add and cleanup scroll event listener
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
+
+  // Toggle the menu visibility
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
+  // Convert a string to a URL-friendly anchor
+  const formatToAnchor = (text) => text.toLowerCase().replace(/\s+/g, "");
+
   return (
-    <header className="bg-green-950 fixed w-full top-0 left-0 z-50">
+    <header
+      id="navbar"
+      className={`bg-green-950 fixed w-full top-0 left-0 z-50 ${
+        isScrolled ? "border-b border-yellow-500" : ""
+      }`}
+    >
       <nav className="container flex items-center justify-between h-16 sm:h-20">
         {/* Logo */}
         <div className="font-Lobster sm:text-2xl">IndoorPlants</div>
@@ -57,14 +77,15 @@ const Navbar = () => {
         </div>
 
         {/* Hamburger Icon */}
-        <div
+        <button
+          aria-expanded={isMenuOpen}
           className="text-xl sm:text-3xl cursor-pointer z-50 lg:hidden"
           onClick={toggleMenu}
         >
           <i
             className={isMenuOpen ? "ri-close-large-line" : "ri-menu-4-line"}
           />
-        </div>
+        </button>
       </nav>
     </header>
   );
