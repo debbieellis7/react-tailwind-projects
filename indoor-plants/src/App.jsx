@@ -5,6 +5,7 @@ import AboutUs from "./components/AboutUs";
 import Popular from "./components/Popular";
 import Review from "./components/Review";
 import Footer from "./components/Footer";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Review />
       </main>
       <Footer />
+      <ScrollToTopButton />
     </>
   );
 }
