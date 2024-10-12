@@ -1,7 +1,7 @@
 const Card = ({ icon, title, description }) => {
   return (
     <div
-      className="border border-green-900 p-5 cursor-pointer rounded-md 
+      className="service-card border border-green-900 p-5 cursor-pointer rounded-md 
       hover:shadow-2xl hover:-translate-y-1 duration-300 space-y-5"
     >
       <div className="flex items-center gap-5">

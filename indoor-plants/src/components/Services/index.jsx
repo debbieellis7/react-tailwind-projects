@@ -1,3 +1,4 @@
+import useScrollReveal from "../../hooks/useScrollReveal";
 import Card from "./Card";
 
 const Services = () => {
@@ -48,6 +49,9 @@ const Services = () => {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, facere debitis omnis",
     },
   ];
+
+  // Initialize ScrollReveal animations
+  useScrollReveal([{ selector: ".service-card", options: { interval: 100 } }]);
 
   return (
     <div className="bg-white text-green-900 py-20">

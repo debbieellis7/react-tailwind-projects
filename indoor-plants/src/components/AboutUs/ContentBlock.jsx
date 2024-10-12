@@ -6,7 +6,7 @@ const ContentBlock = ({ title, image, imageAlt, reverse }) => {
       } gap-5`}
     >
       {/* image */}
-      <div className="w-full lg:w-1/2">
+      <div className="about-item-1-img w-full lg:w-1/2">
         <img
           src={image}
           className="w-full sm:w-2/3 lg:w-full xl:w-2/3 mx-auto"
@@ -15,7 +15,7 @@ const ContentBlock = ({ title, image, imageAlt, reverse }) => {
       </div>
 
       {/* content */}
-      <div className="w-full lg:w-1/2">
+      <div className="about-item-1-content w-full lg:w-1/2">
         <div className="space-y-5">
           <h3>{title}</h3>
           <p className="text-slate-300 font-Lobster">

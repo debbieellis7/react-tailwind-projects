@@ -1,3 +1,4 @@
+import useScrollReveal from "../../hooks/useScrollReveal";
 import ContentBlock from "./ContentBlock";
 import leaf3 from "../../assets/leaf-3.png";
 import plant1 from "../../assets/plant-1.png";
@@ -29,13 +30,23 @@ const AboutUs = () => {
     },
   ];
 
+  // Initialize ScrollReveal animations
+  useScrollReveal([
+    { selector: ".about-top" },
+    { selector: ".about-leaf", options: { delay: 1000, origin: "right" } },
+    {
+      selector: ".about-item-1-content, .about-item-1-img",
+      options: { origin: "right" },
+    },
+  ]);
+
   return (
     <section id="aboutus" className="relative overflow-hidden">
-      <div className="absolute -top-8 -right-12 opacity-50">
+      <div className="about-leaf absolute -top-8 -right-12 opacity-50">
         <img src={leaf3} className="w-40 md:w-52 xl:w-64" alt="leaf-image" />
       </div>
 
-      <div className="flex flex-col items-center gap-3 text-center mb-10 md:mb-20">
+      <div className="about-top flex flex-col items-center gap-3 text-center mb-10 md:mb-20">
         <h2 className="title">About Us</h2>
         <p className="max-w-2xl">Follow instruction for more</p>
       </div>

@@ -1,5 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import useScrollReveal from "../../hooks/useScrollReveal";
 import Card from "./Card";
 import leaf4 from "../../assets/leaf-4.png";
 import review1 from "../../assets/review-1.jpg";
@@ -48,18 +49,25 @@ const Review = () => {
     },
   ];
 
+  // Initialize ScrollReveal animations
+  useScrollReveal([
+    { selector: ".review-top" },
+    { selector: ".review-swiper" },
+    { selector: ".review-leaf", options: { delay: 1000, origin: "left" } },
+  ]);
+
   return (
     <section id="review" className="relative mb-20 md:mb-28 overflow-hidden">
-      <div className="absolute -top-8 -left-12 opacity-50">
+      <div className="review-leaf absolute -top-8 -left-12 opacity-50">
         <img src={leaf4} className="w-40 md:w-52 xl:w-64" alt="leaf_image" />
       </div>
 
-      <div className="flex flex-col items-center gap-3 text-center mb-10 md:mb-20">
+      <div className="review-top flex flex-col items-center gap-3 text-center mb-10 md:mb-20">
         <h2 className="title">Customer Review</h2>
         <p className="max-w-2xl">Follow instruction for more</p>
       </div>
 
-      <div className="container">
+      <div className="review-swiper container">
         <Swiper
           className="swiper py-12"
           modules={[Pagination]}

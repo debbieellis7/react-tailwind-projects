@@ -1,3 +1,4 @@
+import useScrollReveal from "../../hooks/useScrollReveal";
 import Card from "./Card";
 import cart1 from "../../assets/cart-1.png";
 import cart2 from "../../assets/cart-2.png";
@@ -36,9 +37,15 @@ const Popular = () => {
     },
   ];
 
+  // Initialize ScrollReveal animations
+  useScrollReveal([
+    { selector: ".popular-top" },
+    { selector: ".popular__card", options: { interval: 100 } },
+  ]);
+
   return (
     <section id="popular" className="bg-green-900">
-      <div className="flex flex-col items-center gap-3 text-center mb-40">
+      <div className="popular-top flex flex-col items-center gap-3 text-center mb-40">
         <h2 className="title">Your Choice Plant</h2>
         <p className="max-w-2xl">Follow instruction for more</p>
       </div>

@@ -1,3 +1,4 @@
+import useScrollReveal from "../../hooks/useScrollReveal";
 import Newsletter from "./Newsletter";
 import SocialIcons from "./SocialIcons";
 import Branding from "./Branding";
@@ -37,13 +38,19 @@ const Footer = () => {
     { text: "3241 Tailwind Ave, CSS City Webland 7890, USA", href: "#" },
   ];
 
+  // Initialize ScrollReveal animations
+  useScrollReveal([
+    { selector: ".footer-icon, .footer-content, .copy-right" },
+    { selector: ".footer-floral", options: { delay: 1000, origin: "left" } },
+  ]);
+
   return (
     <footer className="bg-yellow-100 text-green-950 pt-20 pb-10 md:pt-28 relative">
       {/* Newsletter */}
       <Newsletter />
 
       {/* Social icons */}
-      <div className="container mt-16 mb-10">
+      <div className="footer-icon container mt-16 mb-10">
         <div className="border-b border-green-500 relative">
           <div className="absolute top-0 transform -translate-y-1/2 left-0 right-0 max-w-36 mx-auto">
             <SocialIcons icons={socialIcons} />
@@ -52,7 +59,7 @@ const Footer = () => {
       </div>
 
       {/* Content */}
-      <div className="container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 text-center md:text-start">
+      <div className="footer-content container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 text-center md:text-start">
         <Branding />
         <LinkGroup title="Quick Link" links={quickLinks} />
         <LinkGroup title="Popular Services" links={popularServices} />
@@ -63,7 +70,7 @@ const Footer = () => {
       <Copyright />
 
       {/* Floral image */}
-      <div className="absolute bottom-0 left-0 opacity-20 pointer-events-none">
+      <div className="footer-floral absolute bottom-0 left-0 opacity-20 pointer-events-none">
         <img src={floral1} className="w-full lg:w-1/2" alt="floral_image" />
       </div>
     </footer>

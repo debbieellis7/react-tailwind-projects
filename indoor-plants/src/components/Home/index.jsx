@@ -1,3 +1,4 @@
+import useScrollReveal from "../../hooks/useScrollReveal";
 import Blob from "./Blob";
 import Button from "./Button";
 import SocialIcons from "./SocialIcons";
@@ -30,6 +31,12 @@ const Home = () => {
     },
   ];
 
+  // Initialize ScrollReveal animations
+  useScrollReveal([
+    { selector: ".home-data" },
+    { selector: ".home-image", options: { delay: 500, scale: 0.5 } },
+  ]);
+
   return (
     <section id="home" className="relative">
       <div className="container">
@@ -43,7 +50,7 @@ const Home = () => {
 
         <div className="flex flex-col items-center gap-5 lg:flex-row">
           {/* Content */}
-          <div className="w-full space-y-5 lg:w-1/2">
+          <div className="home-data w-full space-y-5 lg:w-1/2">
             <h1>
               <span className="text-yellow-500">Plants</span> make a <br />{" "}
               positive <span className="text-yellow-500">impact</span> on <br />{" "}
@@ -72,7 +79,7 @@ const Home = () => {
 
           {/* Image and Decorative Icons */}
           <div className="w-full relative lg:w-1/2">
-            <img src={homeImage} alt="home_image" />
+            <img src={homeImage} className="home-image" alt="home_image" />
 
             {decorativeIcons.map((icon, index) => (
               <DecorativeIcon
