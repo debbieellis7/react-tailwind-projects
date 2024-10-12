@@ -25,7 +25,7 @@ const Home = () => {
       icon: "ri-plant-line",
       size: "xlarge",
       color: "yellow-500",
-      positionClasses: "-top-8 -left-5",
+      positionClasses: "top-8 -left-5",
       animationClasses: "animate-scalingUp",
       additionalClasses: "hidden lg:block",
     },
