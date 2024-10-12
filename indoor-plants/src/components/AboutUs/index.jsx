@@ -30,7 +30,7 @@ const AboutUs = () => {
   ];
 
   return (
-    <section id="about" className="relative overflow-hidden">
+    <section id="aboutus" className="relative overflow-hidden">
       <div className="absolute -top-8 -right-12 opacity-50">
         <img src={leaf3} className="w-40 md:w-52 xl:w-64" alt="leaf-image" />
       </div>

@@ -1,26 +1,53 @@
 import { useState, useEffect, useCallback } from "react";
+import { throttle } from "lodash";
+import NavigationMenu from "./NavigationMenu";
+import formatToAnchor from "../../utils/formatToAnchor";
+
+// Menu items array
+const menuItems = ["Home", "About Us", "Popular", "Review"];
+
+// Get the current section based on scroll position
+const getCurrentSection = () => {
+  for (const item of menuItems) {
+    const section = document.getElementById(formatToAnchor(item));
+    if (section) {
+      const rect = section.getBoundingClientRect();
+      if (rect.top >= 0 && rect.top <= window.innerHeight / 2) {
+        // Return early if current section is found
+        return item;
+      }
+    }
+  }
+
+  // Return empty string if no section is active
+  return "";
+};
 
 const Navbar = () => {
-  // Menu items array
-  const menuItems = ["Home", "About Us", "Popular", "Review"];
-
   // State to manage the visibility of the menu
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // State to track scroll position
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   // Scroll event handler to add/remove border based on scroll position
-  const handleScroll = useCallback(() => {
-    if (window.scrollY >= 50) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
-  }, []);
+  const handleScroll = useCallback(
+    throttle(() => {
+      setIsScrolled(window.scrollY >= 50);
+
+      // Check which section is currently in view
+      setActiveSection(getCurrentSection());
+    }, 200),
+    []
+  );
 
   // Add and cleanup scroll event listener
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
+
+    // Trigger handleScroll on initial load to set the default active section
+    handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
@@ -28,9 +55,6 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
-
-  // Convert a string to a URL-friendly anchor
-  const formatToAnchor = (text) => text.toLowerCase().replace(/\s+/g, "");
 
   return (
     <header
@@ -44,37 +68,12 @@ const Navbar = () => {
         <div className="font-Lobster sm:text-2xl">IndoorPlants</div>
 
         {/* Navigation Menu */}
-        <div
-          className={`absolute top-0 ${
-            isMenuOpen ? "left-0" : "left-[-100%]"
-          } min-h-[80vh] w-full bg-green-950/80 backdrop-blur-sm flex items-center justify-center duration-300 overflow-hidden lg:static lg:min-h-fit lg:bg-transparent lg:w-auto`}
-        >
-          <ul className="flex flex-col items-center gap-8 lg:flex-row">
-            {menuItems.map((item) => (
-              <li key={item}>
-                <a
-                  href={`#${formatToAnchor(item)}`}
-                  className="nav-link"
-                  onClick={toggleMenu}
-                >
-                  {item}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          {/* Decorative images */}
-          <img
-            src="../src/assets/leaf-1.png"
-            alt="Leaf decoration 1"
-            className="absolute bottom-0 -right-10 w-32 opacity-90 lg:hidden"
-          />
-          <img
-            src="../src/assets/leaf-2.png"
-            alt="Leaf decoration 2"
-            className="absolute -top-5 -left-5 rotate-90 w-32 opacity-90 lg:hidden"
-          />
-        </div>
+        <NavigationMenu
+          menuItems={menuItems}
+          isMenuOpen={isMenuOpen}
+          toggleMenu={toggleMenu}
+          activeSection={activeSection}
+        />
 
         {/* Hamburger Icon */}
         <button
